@@ -1,39 +1,32 @@
 const express = require('express');
+const mongoose = require('mongoose');
 
+
+//getting the routes form all files through router 
+const { userRouter } = require('./routes/user');
+const { courseRouter } = require('./routes/course');
+const { adminRouter } = require('./routes/admin');
+
+//diffractions to just use 
 const app = express();
-
 express.json();
 
-//for user signup process  route 
-app.post('/user/signup' , function (req, res)  {
-    res.json({
-        message: 'User signup'
-    })
-});
 
+//version one routes redirtecting 
+//anything coming to this route will redirect to the endpoint i pointed in end 
+app.use('/api/v1/user', userRouter);
+app.use('/api/v1/course', courseRouter);
+app.use('/api/v1/admin', adminRouter);
 
-//for user sign in process route
-app.post('/user/signin', function (req, res) {
-    res.json({
-        message: 'User signin'
-    })
-})
-
-//for user purchased courses 
-app.get('/user/purchased', function (req, res) {
-    res.json({
-        message: 'User purchased courses'
-    })
-})
 
 //for user to when they  gonna purchase the course 
-app.post('/user/purchase', function (req, res) {
+app.post('/course/purchase', function (req, res) {
     res.json({
         message: 'User purchasing this  course'
     })
 })
-
-app.get('/courses', function (req, res) {
+//preview all the courses available on platform 
+app.get('/course/preview', function (req, res) {
     res.json({
         message: 'all courses'
     })
