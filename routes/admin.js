@@ -5,7 +5,7 @@ const adminRouter = Router();//creating the router
 
 
 //for user signup process  route 
-adminRouter.post('/user/signup' , function (req, res)  {
+adminRouter.post('/signup' , function (req, res)  {
     res.json({
         message: 'User signup'
     })
@@ -13,19 +13,31 @@ adminRouter.post('/user/signup' , function (req, res)  {
 
 
 //for user sign in process route
-adminRouter.post('/user/signin', function (req, res) {
+adminRouter.post('/signin', function (req, res) {
     res.json({
         message: 'User signin'
     })
 })
 
-//for user purchased courses 
-adminRouter.get('/user/purchased', function (req, res) {
+//for admin to create a course 
+adminRouter.post('/course', function (req, res) {
     res.json({
-        message: 'User purchased courses'
+        message: 'admin purchased courses'
     })
 })
 
+//for admin to make some changes in the code 
+adminRouter.post('/course', function (req, res) {
+    res.json({
+        message: 'admin purchased courses'
+    })
+})
+//for admin to get all the courses made by them 
+adminRouter.get('/course/all', function (req, res) {
+    res.json({
+        message: 'admin purchased courses'
+    })
+})
 module.exports = {
     adminRouter : adminRouter
 }

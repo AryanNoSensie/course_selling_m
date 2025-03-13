@@ -19,19 +19,6 @@ app.use('/api/v1/course', courseRouter);
 app.use('/api/v1/admin', adminRouter);
 
 
-//for user to when they  gonna purchase the course 
-app.post('/course/purchase', function (req, res) {
-    res.json({
-        message: 'User purchasing this  course'
-    })
-})
-//preview all the courses available on platform 
-app.get('/course/preview', function (req, res) {
-    res.json({
-        message: 'all courses'
-    })
-})
-
 
 
 
