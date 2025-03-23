@@ -1,7 +1,4 @@
  const mongoose = require('mongoose');
- console.log('db.js file is running');
-
-
 
  //build a schema 
  const Schema = mongoose.Schema;
@@ -11,29 +8,29 @@
 const userSchema = new  Schema({
 
     email : {type : String, unique : true},
-    password : String ,
-    firstName : String ,
-    lastName : String ,
+    password: {type: String,required: true},
+    firstname : {type: String},
+    lastname : {type: String}
 
 })
 
 
 const adminSchema = new  Schema({
 
-    email : {type : String , unique : true},
-    password : String ,
-    firstName : String ,
-    lastName : String ,
+    email: {type: String,required: true,unique: true},
+    password: {type: String,required: true},
+    firstname : {type: String},
+    lastname : {type: String}
     
 })
 
 const courseSchema = new  Schema({
 
-    title : String,
+    ttitle : {type: String,unique: true},
     description : String,
     price : Number,
-    image : String,
-    creatorId :  ObjectId
+    imageUrl : String,
+    CreatorId : ObjectId
 })
 
 const purchaseSchema = new  Schema({
@@ -53,8 +50,8 @@ const purchaseModel = mongoose.model('purchase', purchaseSchema);
 
 
 module.exports = {
-    userModel : userModel,
-    adminModel : adminModel,
-    courseModel : courseModel,
-    purchaseModel : purchaseModel
+    UserModel : userModel,
+    AdminModel : adminModel,
+    CourseModel : courseModel,
+    PurchaseModel : purchaseModel
 }

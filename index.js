@@ -10,7 +10,7 @@ const { adminRouter } = require('./routes/admin');
 
 //diffractions to just use 
 const app = express();
-app.use(express.json());
+app.use(express.json());//if user send data , u wanted to parse that data in json format u need to use this 
 
 
 //version one routes redirtecting 
