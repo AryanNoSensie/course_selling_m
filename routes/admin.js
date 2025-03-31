@@ -108,6 +108,7 @@ adminRouter.post('/signin', async function (req, res) {
 adminRouter.post('/course', adminAuthmiddleware , async function (req, res) {
 
    const adminId = req.adminId;
+
     const { title, description, imageUrl, price } = req.body;
 
    const course =  await CourseModel.create({
@@ -126,21 +127,77 @@ adminRouter.post('/course', adminAuthmiddleware , async function (req, res) {
 })
 
 
+//--------------------------------------------------------------------------------------
+
 
 
 
 //for admin to make some changes in the code 
-adminRouter.post('/course', function (req, res) {
+adminRouter.put('/course', adminAuthmiddleware, async  function (req, res) {
+   
+    const adminId = req.adminId;
+    const { title, description, imageUrl, price , courseId } = req.body;
+
+    //cupdating the course also by the sole adminn, not any other admin so making a check too
+
+    const course = await CourseModel.findOne({
+        
+        _id : courseId,
+        CreatorId : adminId
+    },{
+        title : title,
+        description : description,
+        imageUrl : imageUrl,
+        price : price
+    }
+)
+
+
     res.json({
-        message: 'admin purchased courses'
+        message: 'admin updated the course successfully',
+        courseId : course._id
     })
 })
+
+
+
+
+
+//--------------------------------------------------------------------------------------
+
+
+
+
+
+
 //for admin to get all the courses made by them 
-adminRouter.get('/course/all', function (req, res) {
+adminRouter.get('/course/all', adminAuthmiddleware, async  function (req, res) {
+
+
+    const adminId = req.adminId;
+    const { title, description, imageUrl, price , courseId } = req.body;
+
+    //cupdating the course also by the sole adminn, not any other admin so making a check too
+
+    const courses = await CourseModel.find({
+        
+        CreatorId : adminId
+    }
+)
+
+
     res.json({
-        message: 'admin purchased courses'
+        message: 'admin updated the course successfully',
+        courses : courses
     })
+
 })
+
+
+
+
+
+
 module.exports = {
     adminRouter : adminRouter
 }
