@@ -107,7 +107,7 @@ userRouter.post('/signin', async function (req, res) {
 
 //-------------------------------------------------------------------------------------
 
-
+//finsihing this after getting internships lol
 
 
 //for user purchased courses 
