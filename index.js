@@ -21,6 +21,7 @@ app.use('/api/v1/admin', adminRouter);
 
 
 
+
 async function connect() {
     await mongoose.connect("mongodb+srv://officearyan14:Aryan14@backendapp100x.0fmqx.mongodb.net/backendapp100x");
 

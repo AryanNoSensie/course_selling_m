@@ -14,12 +14,21 @@ const { UserModel , AdminModel, CourseModel, PurchaseModel } = require('../datab
 
 //json webtoken for making token on signup 
 const jwt = require('jsonwebtoken');
+const { JWT_USER_PASSWORD } = require('../config');
 
 
+
+
+
+
+
+
+
+//-------------------------------------------------------------------------------------
 
 
 //for user signup process  route for user 
-userRouter.post('/user/signup' , async function (req, res)  {
+userRouter.post('/signup' , async function (req, res)  {
 
     //getting the data from the user using zod validations 
    const requestSchema = z.object({
@@ -37,7 +46,7 @@ const {email,password,firstname,lastname} = req.body;
 try{
     await UserModel.create({
         email,
-        password: hashedPassword,
+        password,
         firstname,
         lastname
 
@@ -52,12 +61,54 @@ res.json({
 });
 
 
+
+
+// -------------------------------------------------------------------------------------
+
+
+
 //for user sign in process route
-userRouter.post('/user/signin', function (req, res) {
-    res.json({
-        message: 'User signin'
+userRouter.post('/signin', async function (req, res) {
+
+    //providing zod input validatioon for sign in 
+  
+
+    //getting the email and password from the user
+    const { email, password } = req.body;
+
+
+   //checking if the email exists in the database
+   const response = await UserModel.findOne({//finding the entry in db 
+    email: email,
+    password: password
+
+});
+  
+   //if the email does not exist in the database
+    if (response) {
+     const token = jwt.sign({
+        id: response._id
+
+     } , JWT_USER_PASSWORD);
+
+       res.json({
+              token: token
     })
+    }
+    else{
+        res.status(404).json({
+            message: 'User not found or wrong credentials '
+        })
+    }
+   
 })
+
+
+
+//-------------------------------------------------------------------------------------
+
+
+
 
 //for user purchased courses 
 userRouter.get('/user/purchased', function (req, res) {
