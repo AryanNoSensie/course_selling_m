@@ -112,6 +112,7 @@ userRouter.post('/signin', async function (req, res) {
 
 //for user purchased courses 
 userRouter.get('/user/purchased', function (req, res) {
+     
     res.json({
         message: 'User purchased courses'
     })
